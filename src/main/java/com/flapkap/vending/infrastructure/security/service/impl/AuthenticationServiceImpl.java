@@ -27,6 +27,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   @Override
   public JWTResponse registerUser(UserRegistrationRequest request) {
 
+    userRepository.findByUsername(request.getUsername())
+            .ifPresent(user -> {
+              throw new IllegalArgumentException("User already exists");
+            });
+
     var user =
         UserEntity.builder()
             .fullName(request.getName())

@@ -25,7 +25,7 @@ import com.flapkap.vending.domain.product.model.ProductDTO;
 import com.flapkap.vending.domain.product.model.ProductEditRequest;
 import com.flapkap.vending.infrastructure.product.datasource.jpa.ProductRepository;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -44,11 +44,6 @@ public class ProductsControllerIT extends IntegrationTestBase {
   @Autowired private MockMvc mockMvc;
 
   @Autowired private ProductRepository productRepository;
-
-  @BeforeEach
-  void setup() {
-    productRepository.deleteAll();
-  }
 
   @Test
   void whenListAllProducts_thenReturnAvailableOnDb() throws Exception {
@@ -166,5 +161,10 @@ public class ProductsControllerIT extends IntegrationTestBase {
         .andDo(print())
         .andExpect(status().isNotFound())
         .andReturn();
+  }
+
+  @AfterEach
+  void clear() {
+    productRepository.deleteAll();
   }
 }

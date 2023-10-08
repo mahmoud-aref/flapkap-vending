@@ -13,7 +13,6 @@ import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.lang.NonNull;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.PostgreSQLContainer;
 
@@ -21,7 +20,6 @@ import org.testcontainers.containers.PostgreSQLContainer;
 @ContextConfiguration(initializers = IntegrationTestBase.Init.class)
 @AutoConfigureMockMvc
 @RequiredArgsConstructor
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 public class IntegrationTestBase {
 
   private static final String POSTGRES_IMAGE_NAME = "postgres:latest";

@@ -37,3 +37,6 @@ I tried to implement my take on understanding of the onion architecture. The app
 - **Infrastructure Layer**: This layer contains the infrastructure logic. It contains the database configuration,
   repositories,and also the security configuration.
 
+## Integration Tests
+
+Tests are available in the `src/test/integration-test` directory. 
