@@ -1,0 +1,33 @@
+version: '3.6'
+
+services:
+
+  postgredb:
+    image: postgres:latest
+    container_name: postgresdb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: vending
+      POSTGRES_USER: vending-user
+      POSTGRES_PASSWORD: vending-user
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vending-machine-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgredb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgredb:5432/vending
+      SPRING_DATASOURCE_USERNAME: vending-user
+      SPRING_DATASOURCE_PASSWORD: vending-user
+
+volumes:
+  postgres-data:

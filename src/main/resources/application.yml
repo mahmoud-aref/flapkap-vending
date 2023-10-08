@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: vending-machine
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vending
+    username: vending-user
+    password: vending-user
+    driver-class-name: org.postgresql.Driver
+  jpa: #Not a good idea for production init tables but good for quick task
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+jwt:
+  signing:
+    key: i-am-signing-key
