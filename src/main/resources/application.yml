@@ -14,3 +14,9 @@ spring:
 jwt:
   signing:
     key: i-am-signing-key
+
+springdoc:
+  swagger-ui:
+    path: /api-docs/ui/swagger-ui/index.html
+  api-docs:
+    path: /api-docs

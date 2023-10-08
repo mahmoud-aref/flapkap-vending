@@ -1,8 +1,8 @@
 package com.flapkap.vending.infrastructure.security.service.impl;
 
-import com.flapkap.vending.infrastructure.security.model.Role;
 import com.flapkap.vending.domain.user.model.UserEntity;
 import com.flapkap.vending.infrastructure.security.model.JWTResponse;
+import com.flapkap.vending.infrastructure.security.model.Role;
 import com.flapkap.vending.infrastructure.security.model.UserLoginRequest;
 import com.flapkap.vending.infrastructure.security.model.UserRegistrationRequest;
 import com.flapkap.vending.infrastructure.security.service.AuthenticationService;

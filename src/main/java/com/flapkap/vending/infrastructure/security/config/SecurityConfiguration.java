@@ -49,11 +49,17 @@ public class SecurityConfiguration {
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
     httpSecurity
+        .cors(AbstractHttpConfigurer::disable)
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(
             request ->
                 request
                     .requestMatchers("/vending/api/v1/auth/**", "/vending/api/v1/buy/**")
+                    .permitAll()
+                    .requestMatchers(
+                        "/api-docs/**",
+                        "/api-docs",
+                        "/**/index.html")
                     .permitAll()
                     .anyRequest()
                     .authenticated())

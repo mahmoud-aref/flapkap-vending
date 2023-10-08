@@ -24,44 +24,43 @@ import org.testcontainers.containers.PostgreSQLContainer;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 public class IntegrationTestBase {
 
-    private static final String POSTGRES_IMAGE_NAME = "postgres:latest";
+  private static final String POSTGRES_IMAGE_NAME = "postgres:latest";
 
-    private static final String TEST_DB = "vending";
+  private static final String TEST_DB = "vending";
 
-    @Autowired
-    private ObjectMapper objectMapper;
+  @Autowired private ObjectMapper objectMapper;
 
-    @ClassRule
-    public static PostgreSQLContainer<?> postgresdb =
-            new PostgreSQLContainer<>(POSTGRES_IMAGE_NAME)
-                    .withUsername(TEST_DB)
-                    .withPassword(TEST_DB)
-                    .withDatabaseName(TEST_DB);
+  @ClassRule
+  public static PostgreSQLContainer<?> postgresdb =
+      new PostgreSQLContainer<>(POSTGRES_IMAGE_NAME)
+          .withUsername(TEST_DB)
+          .withPassword(TEST_DB)
+          .withDatabaseName(TEST_DB);
 
-    public static class Init
-            implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-        @Override
-        public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
-            postgresdb.start();
-            TestPropertyValues values =
-                    TestPropertyValues.of("spring.datasource.url=" + postgresdb.getJdbcUrl())
-                            .and("spring.datasource.username=" + postgresdb.getUsername())
-                            .and("spring.datasource.password=" + postgresdb.getPassword());
+  public static class Init
+      implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+    @Override
+    public void initialize(@NonNull ConfigurableApplicationContext applicationContext) {
+      postgresdb.start();
+      TestPropertyValues values =
+          TestPropertyValues.of("spring.datasource.url=" + postgresdb.getJdbcUrl())
+              .and("spring.datasource.username=" + postgresdb.getUsername())
+              .and("spring.datasource.password=" + postgresdb.getPassword());
 
-            values.applyTo(applicationContext);
-        }
+      values.applyTo(applicationContext);
     }
+  }
 
-    protected <T> T asObject(final String jsonString, Class<T> clazz) throws JsonProcessingException {
-        return objectMapper.readValue(jsonString, clazz);
-    }
+  protected <T> T asObject(final String jsonString, Class<T> clazz) throws JsonProcessingException {
+    return objectMapper.readValue(jsonString, clazz);
+  }
 
-    protected <T> T asObject(final String jsonString, TypeReference<T> reference) throws JsonProcessingException {
-        return objectMapper.readValue(jsonString, reference);
-    }
+  protected <T> T asObject(final String jsonString, TypeReference<T> reference)
+      throws JsonProcessingException {
+    return objectMapper.readValue(jsonString, reference);
+  }
 
-    protected String asJsonString(final Object obj) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(obj);
-    }
-
+  protected String asJsonString(final Object obj) throws JsonProcessingException {
+    return objectMapper.writeValueAsString(obj);
+  }
 }
